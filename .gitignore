@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/CoFi/.vs/CoFi/v15
+/CoFi/CoFi/bin/Debug
+/CoFi/CoFi/obj/Debug
+/CoFi/CoFi/Properties
+/CoFi/.vs/CoFi/DesignTimeBuild
