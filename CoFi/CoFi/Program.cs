@@ -123,8 +123,28 @@ namespace CoFi
                    "Tom 10 SF" };
             assignJobApplications(tsmCount, availableLocations, minExperience, jobApplications);*/
 
-            var input = new int[] { 5, 3, 6, 9, 10 };
-            avoidObstacles(input);
+            //var input = new int[] { 5, 3, 6, 9, 10 };
+            //AvoidObstacles(input);
+            TreeNode tree = new TreeNode(10);
+
+            /*tree.left = new TreeNode(5);
+            tree.right = new TreeNode(-3);
+            tree.left.left = new TreeNode(3);
+            tree.left.right = new TreeNode(2);
+            tree.right.right = new TreeNode(11);
+            tree.left.left.left = new TreeNode(3);
+            tree.left.left.right = new TreeNode(-2);
+            tree.left.right.right = new TreeNode(1);
+            PathSum(tree, 8);*/
+
+            //BinaryGap(22);
+
+            //FindAnagrams("BACDGABCDA", "ABCD");
+
+            //BulbSwitch(3);
+
+            var input = new int[] { 10, 15, 3, 7 };
+            IsSumPossible(input, 17);
 
         }
 
@@ -564,7 +584,7 @@ namespace CoFi
             return retList.ToArray();
         }
 
-        static int avoidObstacles(int[] inputArray)
+        static int AvoidObstacles(int[] inputArray)
         {
             int count = 2;
             var ableToJump = false;
@@ -586,10 +606,190 @@ namespace CoFi
             }
             return count;
         }
+
+        public static int PathSum(TreeNode root, int sum)
+        {
+            return FindPathSum(root, sum);
+
+        }
+
+        public static int FindPathSum(TreeNode root, int sum)
+        {
+            if (root == null) return 0;
+            int count = 0;
+            Console.WriteLine(root.val);
+            if (sum == root.val && root.left == null && root.right == null)
+            {
+                count++;
+            }
+
+            else if (sum != root.val && root.left == null && root.right == null)
+                return 0;
+            else
+            {
+                FindPathSum(root.left, sum - root.val);
+                FindPathSum(root.right, sum - root.val);
+            }
+            return count;
+        }
+
+        public static int BinaryGap(int N)
+        {
+            int maxDistance = 0;
+            bool foundOne = false;
+            int distance = 0;
+            string binaryCode = Convert.ToString(N, 2);
+            foreach(char c in binaryCode)
+            {
+                if (c == '1' && !foundOne)  foundOne = true;
+                else if(foundOne && c == '1')
+                {
+                    distance++;
+                    maxDistance = Math.Max(maxDistance, distance);
+                    distance = 0;
+                }
+                else distance++;
+            }
+            return maxDistance;
+        }
+
+        /*public static IList<int> FindAnagrams(string s, string p)
+        {
+            IList<int> outList = new List<int>();
+            List<Char> set = new List<char>();
+            List<int> indexList = new List<int>();
+            var pl = p.ToList();
+            pl.Sort();
+
+            foreach (char c in p)
+            {
+                indexList.Clear();
+                for (var k=0; k < s.Length; k++)
+                {
+                    if (s[k] == c) indexList.Add(k);
+                }
+                                
+                if (indexList.Count == 0) continue;
+                indexList.ForEach(index =>
+                {
+                    set.Add(c);
+                    for (var i = 1; i <= p.Length - 1; i++)
+                    {
+                        if (index + i <= s.Length - 1 && p.Contains(s[index + i]))
+                        {
+                            set.Add(s[index + i]);
+                        }
+                    }
+                    set.Sort();
+                    var firstNotSecond = string.Join("", set);
+                    var secondNotFirst = string.Join("", pl);
+                    if (set.Count() == pl.Count() && firstNotSecond.Equals(secondNotFirst)) outList.Add(index);
+                    set.Clear();
+                });
+                
+            }
+            var ol = outList.Distinct().OrderBy(e => e).ToList();
+            return ol;
+        }*/
+
+        static bool compare(char []arr1, char []arr2)
+        {
+            int MAX = 256;
+            for (int i = 0; i < MAX; i++)
+                if (arr1[i] != arr2[i])
+                    return false;
+            return true;
+        }
+
+        // This function search for all permutations
+        // of pat[] in txt[]
+        public static IList<int> FindAnagrams(string s, string p)
+        {
+            int MAX = 256;
+            int M = s.Length;
+            int N = p.Length;
+            var outList = new List<int>();
+
+            // countP[]:  Store count of all 
+            // characters of pattern
+            // countTW[]: Store count of current
+            // window of text
+            char[] countP = new char[MAX];
+            char[] countTW = new char[MAX];
+            for (int i = 0; i < M; i++)
+            {
+                (countP[s.ElementAt(i)])++;
+                (countTW[p.ElementAt(i)])++;
+            }
+
+            // Traverse through remaining characters
+            // of pattern
+            for (int i = M; i < N; i++)
+            {
+                // Compare counts of current window
+                // of text with counts of pattern[]
+                if (compare(countP, countTW))
+                    outList.Add(i - M);
+                    //System.out.println("Found at Index " + (i - M));
+
+                // Add current character to current 
+                // window
+                (countTW[p.ElementAt(i)])++;
+
+                // Remove the first character of previous
+                // window
+                countTW[p.ElementAt(i-M)]--;
+            }
+
+            // Check for the last window in text
+            if (compare(countP, countTW))
+                outList.Add(N - M);
+            //System.out.println("Found at Index " + (N - M));
+
+            outList.Sort();
+            return outList;
+        }
+
+        public static int BulbSwitch(int n)
+        {
+            int count = 0;
+            for (int i = 1; i <= n; i++)
+            {
+                if (i * i <= n)
+                    count++;
+                if (i * i > n)
+                    return count;
+            }
+            return count;
+
+        }
+
+        public static bool IsSumPossible(int[] input, int sum)
+        {
+            HashSet<int> complimentSet = new HashSet<int>();
+            foreach(var num in input)
+            {
+                int compliment = sum - num;
+                if (complimentSet.Contains(num))
+                    return true;
+                else
+                    complimentSet.Add(compliment);
+                
+            }
+            return false;
+        }
     }
     public class ListNode<T>
     {
         public T value { get; set; }
         public ListNode<T> next { get; set; }
+    }
+
+    public class TreeNode
+    {
+        public int val;
+        public TreeNode left;
+        public TreeNode right;
+        public TreeNode(int x) { val = x; }
     }
 }
