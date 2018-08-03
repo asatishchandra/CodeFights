@@ -59,7 +59,7 @@ namespace CoFi
             t.next.next.next.next.next.value = 5;
             removeKFromList(t, 3);*/
 
-            //RevereseNumberInPlace(1234);
+            RevereseNumberInPlace(1534236469);
 
             /*var t = new ListNode<int>();
             t.value = 9876;
@@ -125,7 +125,7 @@ namespace CoFi
 
             //var input = new int[] { 5, 3, 6, 9, 10 };
             //AvoidObstacles(input);
-            TreeNode tree = new TreeNode(10);
+            //TreeNode tree = new TreeNode(10);
 
             /*tree.left = new TreeNode(5);
             tree.right = new TreeNode(-3);
@@ -139,12 +139,31 @@ namespace CoFi
 
             //BinaryGap(22);
 
-            //FindAnagrams("BACDGABCDA", "ABCD");
-
+            //FindAnagrams("aaaaaaaaaa", "aaaaaaaaaaaaa"); 
             //BulbSwitch(3);
 
-            var input = new int[] { 10, 15, 3, 7 };
-            IsSumPossible(input, 17);
+            //var input = new int[] { 10, 15, 3, 7 };
+            //IsSumPossible(input, 17);
+
+            //int[] numbers = new int[] { 0,4,3,0 };
+            //FindProduct(numbers);
+            //IsSumPossibleRetIndices(numbers, 0);
+
+            /*var t = new ListNode (2);
+            t.next = new ListNode (4);
+            t.next.next = new ListNode (3);
+            //t.next.next.next = new ListNode<int>();
+            //t.next.next.next.value = 4;
+
+            var t2 = new ListNode (5);
+            t2.next = new ListNode (6);
+            t2.next.next = new ListNode (4);
+
+            AddTwoNumbers(t, t2);*/
+
+            //LengthOfLongestSubstring("abcabcbb");
+
+            LongestPalindrome("babad");
 
         }
 
@@ -322,7 +341,7 @@ namespace CoFi
 
         public static int RevereseNumberInPlace(int number)
         {
-            int rev = 0;
+            long rev = 0L;
 
             while (number != 0)
             {
@@ -330,7 +349,9 @@ namespace CoFi
                 number = number / 10;
 
             }
-            return rev;
+            if ((rev > int.MaxValue) || (rev < int.MinValue))
+                return 0;
+            return Convert.ToInt32(rev);
         }
 
         static ListNode<int> addTwoHugeNumbers(ListNode<int> a, ListNode<int> b)
@@ -653,46 +674,7 @@ namespace CoFi
             return maxDistance;
         }
 
-        /*public static IList<int> FindAnagrams(string s, string p)
-        {
-            IList<int> outList = new List<int>();
-            List<Char> set = new List<char>();
-            List<int> indexList = new List<int>();
-            var pl = p.ToList();
-            pl.Sort();
-
-            foreach (char c in p)
-            {
-                indexList.Clear();
-                for (var k=0; k < s.Length; k++)
-                {
-                    if (s[k] == c) indexList.Add(k);
-                }
-                                
-                if (indexList.Count == 0) continue;
-                indexList.ForEach(index =>
-                {
-                    set.Add(c);
-                    for (var i = 1; i <= p.Length - 1; i++)
-                    {
-                        if (index + i <= s.Length - 1 && p.Contains(s[index + i]))
-                        {
-                            set.Add(s[index + i]);
-                        }
-                    }
-                    set.Sort();
-                    var firstNotSecond = string.Join("", set);
-                    var secondNotFirst = string.Join("", pl);
-                    if (set.Count() == pl.Count() && firstNotSecond.Equals(secondNotFirst)) outList.Add(index);
-                    set.Clear();
-                });
-                
-            }
-            var ol = outList.Distinct().OrderBy(e => e).ToList();
-            return ol;
-        }*/
-
-        static bool compare(char []arr1, char []arr2)
+        private static bool compare(int[] arr1, int[] arr2)
         {
             int MAX = 256;
             for (int i = 0; i < MAX; i++)
@@ -703,23 +685,27 @@ namespace CoFi
 
         // This function search for all permutations
         // of pat[] in txt[]
-        public static IList<int> FindAnagrams(string s, string p)
+        public static IList<int> FindAnagrams_Like(string s, string p)
         {
             int MAX = 256;
-            int M = s.Length;
-            int N = p.Length;
+            int M = p.Length < s.Length ? p.Length : s.Length;
+            int N = p.Length < s.Length ? s.Length : p.Length;
             var outList = new List<int>();
+
+            if (M == 0 || N == 0)
+                return outList;
+
 
             // countP[]:  Store count of all 
             // characters of pattern
             // countTW[]: Store count of current
             // window of text
-            char[] countP = new char[MAX];
-            char[] countTW = new char[MAX];
+            int[] countP = new int[MAX];
+            int[] countTW = new int[MAX];
             for (int i = 0; i < M; i++)
             {
-                (countP[s.ElementAt(i)])++;
-                (countTW[p.ElementAt(i)])++;
+                (countP[p[i]])++;
+                (countTW[s[i]])++;
             }
 
             // Traverse through remaining characters
@@ -734,34 +720,57 @@ namespace CoFi
 
                 // Add current character to current 
                 // window
-                (countTW[p.ElementAt(i)])++;
+                countTW[s[i]]++;
 
                 // Remove the first character of previous
                 // window
-                countTW[p.ElementAt(i-M)]--;
+                countTW[s[i-M]]--;
             }
 
             // Check for the last window in text
             if (compare(countP, countTW))
                 outList.Add(N - M);
             //System.out.println("Found at Index " + (N - M));
-
-            outList.Sort();
             return outList;
+        }
+
+        public static IList<int> FindAnagrams_DontLike(string s, string p)
+        {
+            int[] hash = new int[128];
+            for (int i = 0; i < p.Length; i++)
+            {
+                hash[p[i]]++;
+            }
+            List<int> res = new List<int>();
+            int start = 0;
+            //The goal is to make sure the whole hash array is >= 0.
+            //When hash[i] < 0, move start to get back to 0.
+            for (int i = 0; i < s.Length; i++)
+            {
+                char c = s[i];
+                hash[c]--;
+                while (hash[c] < 0)
+                {
+                    hash[s[start]]++;
+                    start++;
+                }
+                if (i - start + 1 == p.Length)
+                {
+                    res.Add(start);
+                }
+            }
+            return res;
         }
 
         public static int BulbSwitch(int n)
         {
             int count = 0;
-            for (int i = 1; i <= n; i++)
-            {
-                if (i * i <= n)
-                    count++;
-                if (i * i > n)
-                    return count;
+            int i = 1;
+            while(i * i <= n){
+                count++;
+                i++;
             }
             return count;
-
         }
 
         public static bool IsSumPossible(int[] input, int sum)
@@ -772,17 +781,166 @@ namespace CoFi
                 int compliment = sum - num;
                 if (complimentSet.Contains(num))
                     return true;
-                else
-                    complimentSet.Add(compliment);
-                
+                complimentSet.Add(compliment);
             }
             return false;
+        }
+
+        public static int[] IsSumPossibleRetIndices(int[] nums, int target)
+        {
+            Dictionary<int, int> complimentSet = new Dictionary<int, int>();
+            int[] retArray = new int[2];
+
+            if (nums.Length == 0)
+                return retArray;
+
+            for(int i = 0; i<nums.Length; i++)
+            {
+                int compliment = target - nums[i];
+                if (complimentSet.ContainsKey(nums[i]) && complimentSet[nums[i]] != i)
+                {
+                    retArray[0] = complimentSet[nums[i]];
+                    retArray[1] = i;
+                    return retArray;
+                }
+                complimentSet.Add(compliment, i);
+
+            }
+            
+            return retArray;
+        }
+
+        public static int[] FindProduct(int[] nums)
+        {
+            int n = nums.Length;
+            int[] res = new int[n];
+            res[0] = 1;
+            for (int i = 1; i < n; i++)
+            {
+                res[i] = res[i - 1] * nums[i - 1];
+            }
+            int right = 1;
+            for (int i = n - 1; i >= 0; i--)
+            {
+                res[i] *= right;
+                right *= nums[i];
+            }
+            return res;
+        }
+
+        public static ListNode AddTwoNumbers(ListNode l1, ListNode l2)
+        {
+            var r = new ListNode(-1);
+            var n = r;
+            int carry = 0;
+            while (carry > 0 || l1 != null || l2 != null)
+            {
+                var v = (l1?.val ?? 0) + (l2?.val ?? 0) + carry;
+                carry = (int)(v / 10);
+                n = n.next = new ListNode(v % 10);
+                l1 = l1?.next;
+                l2 = l2?.next;
+            }
+            return r.next;
+        }
+
+        public static int LengthOfLongestSubstring(string s)
+        {
+            s = "abcabcbb";
+            HashSet<char> set = new HashSet<char>();
+            int maxcount = 0;
+            for(int i = 0; i< s.Length; i++)
+            {
+                set.Add(s[i]);
+                var j = i+1;
+                while (j < s.Length)
+                {
+                    if (set.Contains(s[j])) break;
+                    else set.Add(s[j]);
+                    j++;
+                }
+                maxcount = Math.Max(maxcount, set.Count);
+                set.Clear();
+            }
+            return maxcount;
+        }
+        public static string LongestPalindrome(string s)
+        {
+
+            if (string.IsNullOrEmpty(s))
+            {
+                return string.Empty;
+            }
+            int start = 0, end = 0;
+            string result = string.Empty;
+
+
+            while (end < s.Length)
+            {
+                if (IsPalindrome(s, start, end))
+                {
+                    result = (result.Length < (end - start + 1)) ? s.Substring(start, end - start + 1) : result;
+                    if (start > 0)
+                        start--;
+                    end++;
+                }
+                else
+                {
+                    start++;
+                }
+            }
+            return result;
+        }
+
+        private static bool IsPalindrome(string s, int start, int end)
+        {
+            while (start < end)
+            {
+                if (s[start] != s[end])
+                {
+                    return false;
+                }
+                start++;
+                end--;
+            }
+            return !(start < end);
+        }
+
+        public static List<int> ListOfPrimes(int number)
+        {
+            var retList = new List<int>();
+            if (number < 0 || number == 1)
+                return retList;
+            for(var i = 2; i<=number; i++)
+            {
+                IsPrime(i, retList);
+            }
+
+            return retList;
+        }
+
+        public static void IsPrime(int number, List<int> list)
+        {
+            var num = Math.Sqrt(number);
+            for(var i=2; i<num; i++)
+            {
+
+            }
         }
     }
     public class ListNode<T>
     {
         public T value { get; set; }
         public ListNode<T> next { get; set; }
+
+        
+    }
+
+    public class ListNode
+    {
+        public int val;
+        public ListNode next;
+        public ListNode(int x) { val = x; }
     }
 
     public class TreeNode
