@@ -6,11 +6,16 @@ using System.Threading.Tasks;
 
 namespace DailyCodingChallenge
 {
-    public class TreeNode
+    public class TreeNode<T>
     {
-        public int val;
-        public TreeNode left;
-        public TreeNode right;
-        public TreeNode(int x) { val = x; }
+        public T val;
+        public TreeNode<T> left;
+        public TreeNode<T> right;
+        public TreeNode(T x)
+        {
+            val = x;
+            left = null;
+            right = null;
+        }
     }
 }

@@ -59,7 +59,7 @@ namespace CoFi
             t.next.next.next.next.next.value = 5;
             removeKFromList(t, 3);*/
 
-            RevereseNumberInPlace(1534236469);
+            //RevereseNumberInPlace(1534236469);
 
             /*var t = new ListNode<int>();
             t.value = 9876;
@@ -163,7 +163,11 @@ namespace CoFi
 
             //LengthOfLongestSubstring("abcabcbb");
 
-            LongestPalindrome("babad");
+            //LongestPalindrome("babad");
+
+            //NthFib(3);
+
+            ListOfPrimes(50);
 
         }
 
@@ -908,25 +912,56 @@ namespace CoFi
 
         public static List<int> ListOfPrimes(int number)
         {
-            var retList = new List<int>();
-            if (number < 0 || number == 1)
-                return retList;
-            for(var i = 2; i<=number; i++)
-            {
-                IsPrime(i, retList);
-            }
+            if (number <= 0 || number == 1)
+                return new List<int>();
 
+            var retList = new List<int>();
+            bool[] isPrimeArr = new bool[number+1];
+            isPrimeArr[0] = false;
+            isPrimeArr[1] = false;
+            for (int i = 2; i < isPrimeArr.Length; i++) {
+                isPrimeArr[i] = true;
+            }
+            
+            for (int p = 2; p*p<=number; p++)
+            {
+                //IsPrime(i, isPrimeArr);
+                if (isPrimeArr[p] == true)
+                {
+                    // Update all multiples of p 
+                    for (int i = p * p; i <= number; i += p)
+                        isPrimeArr[i] = false;
+                }
+            }
+            retList = isPrimeArr.Select((s, i) => new { i, s })
+                    .Where(t => t.s == true)
+                    .Select(t => t.i)
+                    .ToList();
             return retList;
         }
 
-        public static void IsPrime(int number, List<int> list)
+        public static void IsPrime(int number, bool[] list)
         {
             var num = Math.Sqrt(number);
-            for(var i=2; i<num; i++)
+            for(var i=2; i<=num; i++)
             {
-
+                if (number % i == 0)
+                    list[number] = false;
             }
         }
+
+        public static int NthFib(int n) {
+            int[] mem = new int[n + 1];
+            mem[0] = 0;
+            mem[1] = 1;
+            for (int i = 2; i < n; i++)
+            {
+              mem[i] = mem[i - 1] + mem[i - 2];
+            }
+            return mem[n-1];
+        }
+
+
     }
     public class ListNode<T>
     {

@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.0": {
+      "RaiseMe/1.0.0": {
+        "runtime": {
+          "RaiseMe.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "RaiseMe/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

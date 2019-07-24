@@ -1,0 +1,12 @@
+C:\Users\sayyagari\source\repos\CodeFights\CoFi\RaiseMe\bin\Debug\netcoreapp3.0\RaiseMe.exe
+C:\Users\sayyagari\source\repos\CodeFights\CoFi\RaiseMe\bin\Debug\netcoreapp3.0\RaiseMe.deps.json
+C:\Users\sayyagari\source\repos\CodeFights\CoFi\RaiseMe\bin\Debug\netcoreapp3.0\RaiseMe.runtimeconfig.json
+C:\Users\sayyagari\source\repos\CodeFights\CoFi\RaiseMe\bin\Debug\netcoreapp3.0\RaiseMe.runtimeconfig.dev.json
+C:\Users\sayyagari\source\repos\CodeFights\CoFi\RaiseMe\bin\Debug\netcoreapp3.0\RaiseMe.dll
+C:\Users\sayyagari\source\repos\CodeFights\CoFi\RaiseMe\bin\Debug\netcoreapp3.0\RaiseMe.pdb
+C:\Users\sayyagari\source\repos\CodeFights\CoFi\RaiseMe\obj\Debug\netcoreapp3.0\RaiseMe.csprojAssemblyReference.cache
+C:\Users\sayyagari\source\repos\CodeFights\CoFi\RaiseMe\obj\Debug\netcoreapp3.0\RaiseMe.csproj.CoreCompileInputs.cache
+C:\Users\sayyagari\source\repos\CodeFights\CoFi\RaiseMe\obj\Debug\netcoreapp3.0\RaiseMe.AssemblyInfoInputs.cache
+C:\Users\sayyagari\source\repos\CodeFights\CoFi\RaiseMe\obj\Debug\netcoreapp3.0\RaiseMe.AssemblyInfo.cs
+C:\Users\sayyagari\source\repos\CodeFights\CoFi\RaiseMe\obj\Debug\netcoreapp3.0\RaiseMe.dll
+C:\Users\sayyagari\source\repos\CodeFights\CoFi\RaiseMe\obj\Debug\netcoreapp3.0\RaiseMe.pdb

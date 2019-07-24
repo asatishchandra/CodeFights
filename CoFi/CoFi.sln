@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2026
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoFi", "CoFi\CoFi.csproj", "{1ADE0D2D-CA06-4EC3-B760-27B3DA13A2FE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DailyCodingChallenge", "DailyCodingChallenge\DailyCodingChallenge.csproj", "{11951399-FE70-4974-BDF2-E4E780E7FDD3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaiseMe", "RaiseMe\RaiseMe.csproj", "{3867280D-E1D8-433D-B112-3D92C8A2604A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{11951399-FE70-4974-BDF2-E4E780E7FDD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11951399-FE70-4974-BDF2-E4E780E7FDD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11951399-FE70-4974-BDF2-E4E780E7FDD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3867280D-E1D8-433D-B112-3D92C8A2604A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3867280D-E1D8-433D-B112-3D92C8A2604A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3867280D-E1D8-433D-B112-3D92C8A2604A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3867280D-E1D8-433D-B112-3D92C8A2604A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
